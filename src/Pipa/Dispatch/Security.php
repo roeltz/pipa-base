@@ -7,26 +7,23 @@ class Security {
 
 	private $roles = array();
 	private $reverse = array();
-	static private $instance;
 
 	static function attach(Dispatch $dispatch) {
-		return self::$instance = new self($dispatch);
+		$instance = new self();
+		$dispatch->security = $instance;
+		$dispatch->events->listen("post-routing", array($instance, "checkDispatch"));
+		return $instance;
 	}
 	
-	static function getInstance() {
-		return self::$instance;
-	}
-
-	private function __construct(Dispatch $dispatch) {
-		$dispatch->events->listen("post-routing", array($dispatch->security = $this, "check"));
-	}
-
-	function check(Dispatch $dispatch) {
+	function checkDispatch(Dispatch $dispatch) {
 		if (!$dispatch->session->getPrincipal()) {
 			$dispatch->events->trigger("principal-needed");
 		}
+		
+		$principal = $dispatch->session->getPrincipal();
+		$constraints = $dispatch->action->getOptions("secured");
 
-		if (!$this->isAllowed($dispatch)) {
+		if (!$this->isAllowed($principal, $constraints)) {
 			throw new SecurityException("User not allowed");
 		}
 	}
@@ -38,28 +35,25 @@ class Security {
 		return $this;
 	}
 
-	function isAllowed(Dispatch $dispatch, $allowedRoles = null) {
-		$allowed = true;
-		$configured = $dispatch->action->getOptions('secured');
-		$principal = $dispatch->session->getPrincipal();
-		$roles = array();
+	function isAllowed($principal, $constraints = null) {
 
-		if ($configured === false)
+		if ($constraints === false)
 			return true;
 
-		if ($principal instanceof Principal)
+		if ($principal instanceof Principal) {
 			$roles = (array) $principal->getPrincipalRoles();
+		} else {
+			$roles = array();
+		}
 
-		if ($allowedRoles) {
-			$allowed = $this->isAnyRoleIncluded($roles, (array) $allowedRoles);
-		} elseif ($configured) {
-			if ($configured == "*" && $principal) {
-				$allowed = true;
+		if ($constraints) {
+			if ($constraints == "*" && $principal) {
+				return true;
 			} else {
-				$configured = (array) $configured;
+				$constraints = (array) $constraints;
 				$configAllowed = array();
 				$configDenied = array();
-				foreach($configured as $role) {
+				foreach($constraints as $role) {
 					if (strpos($role, "!") !== false) {
 						$configDenied[] = $role;
 					} else {
@@ -69,10 +63,11 @@ class Security {
 
 				$allow = (in_array("*", $configAllowed) && $principal) || $this->isAnyRoleIncluded($roles, $configAllowed);
 				$deny = in_array("*", $configDenied) || $this->isAnyRoleIncluded($roles, $configDenied);
-				$allowed = in_array("#denyfirst", $configured) ? (!$deny || $allow) : ($allow && !$deny);
+				return in_array("#denyfirst", $constraints) ? (!$deny || $allow) : ($allow && !$deny);
 			}
 		}
-		return $allowed;
+		
+		return true;
 	}
 
 	function getGreaterRoles($role) {

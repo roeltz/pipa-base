@@ -25,8 +25,12 @@ class Config {
 		return self::getGlobal()->getFutureValue($key);
 	}
 	
-	static function load($path) {
-		return self::getGlobal()->loadFile($path);
+	static function load() {
+		foreach(func_get_args() as $path) {
+			if (file_exists($path)) {
+				return self::getGlobal()->loadFile($path);
+			}
+		}
 	}
 	
 	static function set($key, $value) {
