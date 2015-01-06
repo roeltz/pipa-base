@@ -35,6 +35,7 @@ class Localization {
 		foreach($this->extractors as $extractor) {
 			if ($locale = $extractor->getLocale($dispatch)) {
 				$locale->setEnvironment();
+				$dispatch->locale = $locale;
 				return;
 			}
 		}

@@ -12,7 +12,7 @@ class Result implements HasComparableState {
 	
 	static function from($result, array $options = array()) {
 		$result = $result instanceof self ? $result : new self($result);
-		$result->options = array_merge($result->options, $options);
+		$result->options = array_merge($options, $result->options);
 		return $result;
 	}
 	
