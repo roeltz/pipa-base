@@ -6,7 +6,7 @@ use Pipa\Parser\ProductionRule;
 use Pipa\Parser\Symbol\Regex;
 use Pipa\Parser\Symbol\Literal;
 
-class String extends ProductionRule {
+class QuotedString extends ProductionRule {
 	
 	function __construct() {
 		parent::__construct(array(

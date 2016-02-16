@@ -7,7 +7,6 @@ use Pipa\Parser\ProductionRule;
 use Pipa\Parser\Std\Rule\Boolean;
 use Pipa\Parser\Std\Rule\ItemList;
 use Pipa\Parser\Std\Rule\Number;
-use Pipa\Parser\Std\Rule\String;
 use Pipa\Parser\Symbol\Alternative;
 use Pipa\Parser\Symbol\Quantified\ZeroOrMore;
 use Pipa\Parser\Symbol\Quantified\ZeroOrOne;
