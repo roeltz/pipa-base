@@ -1,11 +1,11 @@
 <?php
 
 namespace Pipa\Error;
-use Exception;
+use Throwable;
 
 class ExceptionInfo extends ErrorInfo {
 	
-	function __construct(Exception $e) {
+	function __construct(Throwable $e) {
 		parent::__construct(
 			get_class($e).': '.$e->getMessage(),
 			$e->getCode(),
