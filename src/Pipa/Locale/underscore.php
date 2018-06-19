@@ -15,7 +15,7 @@ namespace {
 
 	if (!function_exists("__")) {
 		function __() {
-			call_user_func_array("Pipa\Locale\translate", func_get_args());
+			call_user_func_array('Pipa\Locale\translate', func_get_args());
 		}
 	}
 }
