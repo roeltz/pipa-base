@@ -16,7 +16,7 @@ use Pipa\Parser\Symbol\Regex;
 use Pipa\Parser\Symbol\WhitespacedLiteral;
 
 class AnnotationRule extends ProductionRule {
-	
+
 	function __construct() {
 		$value = new AnnotationValueSymbol();
 		$parameter = new AnnotationParameterSymbol($value);
@@ -41,15 +41,17 @@ class AnnotationRule extends ProductionRule {
 
 	function toNode(Match $match) {
 		$class = $match->value['class']->value;
-		
+
 		if ($parameter = @$match->value['parameters']->value->value['parameter']) {
 			$values = array();
 			if ($parameter->name == 'single') {
 				$values['value'] = $parameter->value;
 			} else {
 				foreach($parameter->value as $p) {
-					list($k, $v) = each($p->value);
-					$values[$k] = $v;
+					foreach ($p->value as $k=>$v) {
+						$values[$k] = $v;
+						break;
+					}
 				}
 			}
 			return new AnnotationNode($class, $values);
