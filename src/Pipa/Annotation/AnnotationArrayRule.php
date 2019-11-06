@@ -21,8 +21,8 @@ class AnnotationArrayRule extends ProductionRule {
 		$values = array();
 		foreach($match->value['values']->value as $match) {
 			if (is_array($value = $match->value['value']->value)) {
-				list($k, $v) = each($match->value['value']->value);
-				$values[$k] = $v;
+				$keys = array_keys($value);
+				$values[$keys[0]] = $value[$keys[0]];
 			} else {
 				$values[] = $value;
 			}
