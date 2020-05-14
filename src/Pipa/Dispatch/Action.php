@@ -40,8 +40,6 @@ class Action implements HasComparableState {
 				$instance->useParameterValue($value);
 				return $instance;
 			}
-		} elseif (is_numeric($value)) {
-			return (double) $value;
 		}
 		return $value;
 	}
