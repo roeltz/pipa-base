@@ -30,7 +30,7 @@ abstract class ErrorHandler {
 	}
 
 	static function handleError($code, $message, $file, $line) {
-		if (error_reporting() === 0 && !self::$errorControlOperatorEnabled) return;
+		if (!(error_reporting() & $code) && !self::$errorControlOperatorEnabled) return false;
 		self::display(new ErrorInfo($message, $code, $file, $line, array_slice(debug_backtrace(), 1)));
 	}
 
@@ -40,7 +40,7 @@ abstract class ErrorHandler {
 	}
 
 	static function register($errorTypes = null) {
-		set_error_handler(__CLASS__.'::handleError', is_null($errorTypes) ? E_ALL | E_STRICT : $errorTypes);
+		set_error_handler(__CLASS__.'::handleError', is_null($errorTypes) ? error_reporting() : $errorTypes);
 		set_exception_handler(__CLASS__.'::handleException');
 	}
 
