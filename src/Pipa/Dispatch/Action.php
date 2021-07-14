@@ -3,6 +3,7 @@
 namespace Pipa\Dispatch;
 use Pipa\Dispatch\Exception\RoutingException;
 use Pipa\Matcher\HasComparableState;
+use ReflectionClass;
 use ReflectionFunction;
 use ReflectionFunctionAbstract;
 use ReflectionMethod;
@@ -105,7 +106,7 @@ class Action implements HasComparableState {
 	}
 
 	function getReflector() {
-		if (is_callable($this->callable, false, $name)) {
+		if ($this->hasValidCallable($name)) {
 			if ($name == 'Closure::__invoke') {
 				return new ReflectionFunction($this->callable);
 			} elseif (preg_match(self::METHOD_PATTERN, $name, $m)) {
@@ -115,6 +116,20 @@ class Action implements HasComparableState {
 			}
 		} else {
 			throw new RoutingException("Invalid action");
+		}
+	}
+
+	function hasValidCallable(&$name = null) {
+		if (is_callable($this->callable, false, $name)) {
+			return true;
+		} else if (is_string($this->callable) && preg_match(self::METHOD_PATTERN, $this->callable, $m)) {
+			if (class_exists($m[1])) {
+				$class = new ReflectionClass($m[1]);
+				if ($class->hasMethod($m[2])) {
+					$name = $this->callable;
+					return true;
+				}
+			}
 		}
 	}
 
