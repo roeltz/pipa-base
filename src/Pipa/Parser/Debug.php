@@ -41,7 +41,7 @@ class Debug {
 		return $this;
 	}
 	
-	function logMatch(Match $match, $string) {
+	function logMatch(SymbolMatch $match, $string) {
 		echo "MATCH: ".str_repeat(" ", $this->depth * 2)."'".substr($string, $match->start, $match->length)."'\n";
 		return $this;
 	}

@@ -1,7 +1,7 @@
 <?php
 
 namespace Pipa\Dispatch;
-use Pipa\Match\HasComparableState;
+use Pipa\Matcher\HasComparableState;
 use ReflectionFunctionAbstract;
 
 class Result implements HasComparableState {

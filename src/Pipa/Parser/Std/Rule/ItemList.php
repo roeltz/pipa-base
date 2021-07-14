@@ -1,7 +1,7 @@
 <?php
 
 namespace Pipa\Parser\Std\Rule;
-use Pipa\Parser\Match;
+use Pipa\Parser\SymbolMatch;
 use Pipa\Parser\Symbol;
 use Pipa\Parser\Symbol\Rule;
 use Pipa\Parser\Symbol\NonTerminal;

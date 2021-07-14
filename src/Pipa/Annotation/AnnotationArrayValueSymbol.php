@@ -1,7 +1,7 @@
 <?php
 
 namespace Pipa\Annotation;
-use Pipa\Parser\Match;
+use Pipa\Parser\SymbolMatch;
 use Pipa\Parser\Symbol\Alternative;
 use Pipa\Parser\Symbol\NonTerminal;
 
@@ -15,8 +15,8 @@ class AnnotationArrayValueSymbol extends NonTerminal {
 			))
 		));
 	}
-	
-	function toNode(Match $match) {
+
+	function toNode(SymbolMatch $match) {
 		return array(
 			$match->value['value']->name=>$match->value['value']->value
 		);

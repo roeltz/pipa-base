@@ -2,7 +2,7 @@
 
 namespace Pipa\Dispatch;
 use Pipa\Dispatch\Exception\RoutingException;
-use Pipa\Match\HasComparableState;
+use Pipa\Matcher\HasComparableState;
 use ReflectionFunction;
 use ReflectionFunctionAbstract;
 use ReflectionMethod;

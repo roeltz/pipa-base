@@ -2,8 +2,8 @@
 
 namespace Pipa\Dispatch;
 use Pipa\Dispatch\Exception\RoutingException;
-use Pipa\Match\Expression;
-use Pipa\Match\Matcher;
+use Pipa\Matcher\Expression;
+use Pipa\Matcher\Matcher;
 
 class ExpressionRouter implements Router {
 

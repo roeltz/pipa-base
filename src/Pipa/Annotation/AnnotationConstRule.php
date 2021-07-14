@@ -1,7 +1,7 @@
 <?php
 
 namespace Pipa\Annotation;
-use Pipa\Parser\Match;
+use Pipa\Parser\SymbolMatch;
 use Pipa\Parser\ProductionRule;
 use Pipa\Parser\Symbol\Alternative;
 use Pipa\Parser\Symbol\Literal;
@@ -24,7 +24,7 @@ class AnnotationConstRule extends ProductionRule {
 		));
 	}
 	
-	function toNode(Match $match) {
+	function toNode(SymbolMatch $match) {
 		switch($type = $match->value['const']->name) {
 			case 'global':
 				$name = $match->value['const']->value;

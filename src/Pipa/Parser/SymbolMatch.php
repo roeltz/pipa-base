@@ -2,7 +2,7 @@
 
 namespace Pipa\Parser;
 
-class Match {
+class SymbolMatch {
 	public $symbol;
 	public $start;
 	public $length;

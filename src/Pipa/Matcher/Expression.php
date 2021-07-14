@@ -1,13 +1,13 @@
 <?php
 
-namespace Pipa\Match;
-use Pipa\Parser\Match;
+namespace Pipa\Matcher;
+use Pipa\Parser\SymbolMatch;
 use Pipa\Parser\ProductionRule;
 use Pipa\Parser\SyntaxError;
 
 abstract class Expression extends ProductionRule {
 
-	abstract function toPattern(Match $match);
+	abstract function toPattern(SymbolMatch $match);
 	
 	function getPattern($expression, $value) {
 		try {
@@ -21,7 +21,7 @@ abstract class Expression extends ProductionRule {
 		}
 	}
 	
-	function toNode(Match $match) {
+	function toNode(SymbolMatch $match) {
 		return $this->toPattern($match);
 	}
 }

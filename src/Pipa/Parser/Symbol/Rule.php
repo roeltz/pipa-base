@@ -1,7 +1,7 @@
 <?php
 
 namespace Pipa\Parser\Symbol;
-use Pipa\Parser\Match;
+use Pipa\Parser\SymbolMatch;
 use Pipa\Parser\SyntaxError;
 
 abstract class Rule extends NonTerminal {
@@ -27,6 +27,6 @@ abstract class Rule extends NonTerminal {
 		}
 		
 		if ($this->debug) $this->debug->up();
-		return new Match($this, $start, $length, $this->process($matches));
+		return new SymbolMatch($this, $start, $length, $this->process($matches));
 	}
 }

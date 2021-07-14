@@ -3,7 +3,7 @@
 namespace Pipa\Dispatch;
 use Exception;
 use Pipa\Event\EventSource;
-use Pipa\Match\HasComparableState;
+use Pipa\Matcher\HasComparableState;
 
 class Dispatch implements HasComparableState {
 

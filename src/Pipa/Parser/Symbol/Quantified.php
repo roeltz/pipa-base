@@ -3,7 +3,7 @@
 namespace Pipa\Parser\Symbol;
 use Pipa\Parser\Debug;
 use Pipa\Parser\Debuggable;
-use Pipa\Parser\Match;
+use Pipa\Parser\SymbolMatch;
 use Pipa\Parser\Symbol;
 
 abstract class Quantified implements Symbol, Debuggable {
@@ -38,7 +38,7 @@ abstract class Quantified implements Symbol, Debuggable {
 		
 		if ($this->validate($clicks)) {
 			if ($this->debug) $this->debug->up();
-			return new Match($this, $start, $length, $this->process($matches));
+			return new SymbolMatch($this, $start, $length, $this->process($matches));
 		} else {
 			if ($this->debug) $this->debug->backtrack()->up();
 		}

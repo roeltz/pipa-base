@@ -2,7 +2,7 @@
 
 namespace Pipa\Annotation;
 use Pipa\Parser\Debug;
-use Pipa\Parser\Match;
+use Pipa\Parser\SymbolMatch;
 use Pipa\Parser\ProductionRule;
 use Pipa\Parser\Std\Rule\Boolean;
 use Pipa\Parser\Std\Rule\ItemList;
@@ -39,7 +39,7 @@ class AnnotationRule extends ProductionRule {
 		));
 	}
 
-	function toNode(Match $match) {
+	function toNode(SymbolMatch $match) {
 		$class = $match->value['class']->value;
 
 		if ($parameter = @$match->value['parameters']->value->value['parameter']) {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Pipa\Match;
+namespace Pipa\Matcher;
 
 class Pattern {
 

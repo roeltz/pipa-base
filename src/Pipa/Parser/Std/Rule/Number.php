@@ -1,7 +1,7 @@
 <?php
 
 namespace Pipa\Parser\Std\Rule;
-use Pipa\Parser\Match;
+use Pipa\Parser\SymbolMatch;
 use Pipa\Parser\ProductionRule;
 use Pipa\Parser\Symbol\Regex;
 
@@ -13,7 +13,7 @@ class Number extends ProductionRule {
 		));
 	}
 	
-	function toNode(Match $match) {
+	function toNode(SymbolMatch $match) {
 		return (double) $match->value['number']->value;
 	}
 }

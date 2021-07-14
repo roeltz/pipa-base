@@ -1,7 +1,7 @@
 <?php
 
 namespace Pipa\Parser\Symbol;
-use Pipa\Parser\Match;
+use Pipa\Parser\SymbolMatch;
 use Pipa\Parser\Symbol;
 
 class Regex implements Symbol {
@@ -15,7 +15,7 @@ class Regex implements Symbol {
 	
 	function match($string, $start = 0) {
 		if (preg_match($this->regex, substr($string, $start), $m)) {
-			return new Match($this, $start, strlen($m[0]), $m[0]);
+			return new SymbolMatch($this, $start, strlen($m[0]), $m[0]);
 		}
 	}
 }

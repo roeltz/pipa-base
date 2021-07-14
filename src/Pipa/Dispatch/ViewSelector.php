@@ -1,8 +1,8 @@
 <?php
 
 namespace Pipa\Dispatch;
-use Pipa\Match\Expression;
-use Pipa\Match\Matcher;
+use Pipa\Matcher\Expression;
+use Pipa\Matcher\Matcher;
 
 class ViewSelector implements View {
 

@@ -1,7 +1,7 @@
 <?php
 
 namespace Pipa\Annotation;
-use Pipa\Parser\Match;
+use Pipa\Parser\SymbolMatch;
 use Pipa\Parser\ProductionRule;
 use Pipa\Parser\Symbol\Literal;
 use Pipa\Parser\Symbol\WhitespacedLiteral;
@@ -17,7 +17,7 @@ class AnnotationArrayRule extends ProductionRule {
 		));
 	}
 	
-	function toNode(Match $match) {
+	function toNode(SymbolMatch $match) {
 		$values = array();
 		foreach($match->value['values']->value as $match) {
 			if (is_array($value = $match->value['value']->value)) {

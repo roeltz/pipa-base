@@ -1,7 +1,7 @@
 <?php
 
 namespace Pipa\Annotation;
-use Pipa\Parser\Match;
+use Pipa\Parser\SymbolMatch;
 use Pipa\Parser\ProductionRule;
 use Pipa\Parser\Std\Rule\Boolean;
 use Pipa\Parser\Std\Rule\Number;
@@ -23,7 +23,7 @@ class AnnotationValueSymbol extends NonTerminal {
 			))
 		));
 	}
-	
+
 	function process(array $matches) {
 		if ($matches['value']->symbol instanceof ProductionRule) {
 			return $matches['value']->symbol->toNode($matches['value']);

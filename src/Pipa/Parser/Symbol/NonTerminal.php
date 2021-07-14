@@ -3,7 +3,7 @@
 namespace Pipa\Parser\Symbol;
 use Pipa\Parser\Debug;
 use Pipa\Parser\Debuggable;
-use Pipa\Parser\Match;
+use Pipa\Parser\SymbolMatch;
 use Pipa\Parser\Symbol;
 
 class NonTerminal implements Symbol, Debuggable {
@@ -44,7 +44,7 @@ class NonTerminal implements Symbol, Debuggable {
 		
 		if ($this->debug) $this->debug->up();
 		
-		return new Match($this, $start, $length, $this->process($matches));
+		return new SymbolMatch($this, $start, $length, $this->process($matches));
 	}
 	
 	function process(array $matches) {
