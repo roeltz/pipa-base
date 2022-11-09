@@ -25,7 +25,7 @@ class Action implements HasComparableState {
 	}
 
 	function castParameter(ReflectionParameter $parameter, $value) {
-		if ($class = $parameter->getClass()) {
+		if ($class = $this->getParameterClass($parameter)) {
 			if ($class->getName() == "DateTime") {
 				if (is_numeric($value)) {
 					$date = new \DateTime();
@@ -81,7 +81,7 @@ class Action implements HasComparableState {
 		$parameters = array();
 		foreach($function->getParameters() as $parameter) {
 			$name = $parameter->getName();
-			$class = $parameter->getClass();
+			$class = $this->getParameterClass($parameter);
 
 			if (!is_null($value = @$dispatch->request->data[$name])) {
 				$parameters[] = $this->castParameter($parameter, $value);
@@ -145,5 +145,13 @@ class Action implements HasComparableState {
 		$function = $this->getReflector();
 		$parameters = $this->getParameterList($function, $dispatch);
 		return $this->invoke($function, $parameters);
+	}
+
+	private function getParameterClass(ReflectionParameter $parameter) {
+		$type = $parameter->getType();
+
+		if ($type && !$type->isBuiltin()) {
+			return new ReflectionClass($type->getName());
+		}
 	}
 }
