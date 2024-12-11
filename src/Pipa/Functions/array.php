@@ -4,7 +4,7 @@ namespace Pipa;
 
 function array_flatten(array $array, $filterNulls = true) {
 	$flat = (object) array('a'=>array());
-	array_walk_recursive($array, function(&$v, &$k) use ($flat, $filterNulls) { if (!$filterNulls || !is_null($v)) $flat->a[] = $v; });
+	array_walk_recursive($array, function(&$v, $k) use ($flat, $filterNulls) { if (!$filterNulls || !is_null($v)) $flat->a[] = $v; });
 	return $flat->a;
 }
 
